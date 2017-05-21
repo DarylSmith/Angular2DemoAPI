@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SampleAngular.Models;
 using Microsoft.Extensions.Logging;
+using SampleAngular.Entities;
 
 namespace SampleAngular.Controllers
 {
@@ -13,9 +14,13 @@ namespace SampleAngular.Controllers
     {
         private ILogger<EventsController> _logger;
 
-        public EventsController (ILogger<EventsController> logger)
+        private MeetupInfoContext _ctx;
+
+        public EventsController (ILogger<EventsController> logger, MeetupInfoContext ctx)
         {
             _logger = logger;
+
+            _ctx = ctx;
         }
 
         [HttpGet]
