@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using SampleAngular.Models;
 using Microsoft.Extensions.Logging;
 using SampleAngular.Entities;
+using Microsoft.EntityFrameworkCore;
+using 
+
 
 namespace SampleAngular.Controllers
 {
@@ -14,20 +17,18 @@ namespace SampleAngular.Controllers
     {
         private ILogger<EventsController> _logger;
 
-        private MeetupInfoContext _ctx;
+        public MeetupRepository _repository;
 
-        public EventsController (ILogger<EventsController> logger, MeetupInfoContext ctx)
+        public EventsController (ILogger<EventsController> logger, MeetupRepository _repository)
         {
             _logger = logger;
-
-            _ctx = ctx;
         }
 
         [HttpGet]
-        public JsonResult GetEvents()
+        public IActionResult GetEvents()
         {
             _logger.LogInformation($"Found {MeetupEventData.Current.Events.Count} events");
-            return new JsonResult(MeetupEventData.Current.Events);
+            return Ok()
         }
 
         //[HttpPost("api/[controller]")]

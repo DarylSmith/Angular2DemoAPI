@@ -11,14 +11,14 @@ namespace SampleAngular
     {
         public static IConfigurationRoot Configuration;
 
-        //public Startup(IHostingEnvironment env)
-        //{
-        //    var builder = new ConfigurationBuilder()
-        //        .SetBasePath(env.ContentRootPath)
-        //        .AddJsonFile("appSettings.json",optional:false,reloadOnChange:true);
+        public Startup(IHostingEnvironment env)
+        {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appSettings.json", optional: false, reloadOnChange: true);
 
-        //    Configuration = builder.Build();
-        //}
+            Configuration = builder.Build();
+        }
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
@@ -28,6 +28,9 @@ namespace SampleAngular
             services.AddTransient<LocalMailService>();
 
             services.AddDbContext<MeetupInfoContext>();
+            services.AddScoped<MeetupRepository>();
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

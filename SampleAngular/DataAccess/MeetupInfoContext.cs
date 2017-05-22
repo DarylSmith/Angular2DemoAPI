@@ -16,7 +16,8 @@ namespace SampleAngular.Entities
 
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
-            builder.UseSqlServer(@"Data Source=DESKTOP-593T1Q7\SQLEXPRESS;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;Database=MeetupEventsDB");
+            string connection = Startup.Configuration["MeetupDBConnectionString"];
+            builder.UseSqlServer(connection);
             base.OnConfiguring(builder);
         }
 
