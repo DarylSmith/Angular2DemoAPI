@@ -14,6 +14,8 @@ namespace SampleAngular
     {
         private MeetupInfoContext _ctx;
 
+        public MeetupRepository _repository;
+
         public MeetupRepository(MeetupInfoContext ctx)
         {
             _ctx = ctx;

@@ -8,9 +8,10 @@ using SampleAngular.Entities;
 namespace SampleAngular.Migrations
 {
     [DbContext(typeof(MeetupInfoContext))]
-    partial class MeetupInfoContextModelSnapshot : ModelSnapshot
+    [Migration("20170528014454_v2")]
+    partial class v2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
