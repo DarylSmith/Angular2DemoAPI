@@ -15,11 +15,11 @@ namespace SampleAngular.Models
 
         [MaxLength(1000)]
         public string EventDescription { get; set; }
-
+       
         public DateTime EventDate { get; set ; }
 
-        [ForeignKey("SpeakerId")]
-        public MeetupSpeaker Speaker { get;set;}
+        [NotMapped]
+        public string EventTime { get; set; }
 
         public int SpeakerId { get; set; }
 

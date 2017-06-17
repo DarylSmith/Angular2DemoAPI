@@ -16,6 +16,8 @@ namespace SampleAngular
 
         public MeetupRepository _repository;
 
+      
+
         public MeetupRepository(MeetupInfoContext ctx)
         {
             _ctx = ctx;
@@ -24,7 +26,13 @@ namespace SampleAngular
         #region Events
         public IEnumerable<MeetupEvent> GetMeetupEvents()
         {
-            return _ctx.MeetupEvents;
+            IEnumerable<MeetupEvent> events = _ctx.MeetupEvents;
+            foreach(MeetupEvent e in events)
+            {
+                e.EventTime = e.EventDate.ToString("yyyy-MM-dd");
+
+            }
+            return events;
         }
 
         public bool AddMeetupEvent(MeetupEvent e)
@@ -35,11 +43,15 @@ namespace SampleAngular
 
         public bool UpdateMeetupEvent(MeetupEvent e)
         {
-            if (_ctx.MeetupEvents.Find(e.Id) == null)
-                return false;
+            var obj = _ctx.MeetupEvents.Single(y => y.Id == e.Id);
 
-            _ctx.MeetupEvents.Attach(e);
-            _ctx.Entry(e).State = EntityState.Modified;
+        if(obj==null)
+           return false;
+
+            obj.EventDate = e.EventDate;
+            obj.EventDescription = e.EventDescription;
+            obj.EventName = e.EventName;
+            obj.SpeakerId = e.SpeakerId;
             return SaveChanges();
         }
 
@@ -71,11 +83,14 @@ namespace SampleAngular
 
         public bool UpdateMeetupSpeaker(MeetupSpeaker s)
         {
-            if (_ctx.MeetupEvents.Find(s.Id) == null)
+            var obj = _ctx.MeetupSpeakers.Single(e => e.Id == s.Id);
+
+            if (obj == null)
                 return false;
 
-            _ctx.MeetupSpeakers.Attach(s);
-            _ctx.Entry(s).State = EntityState.Modified;
+            obj.FirstName = s.FirstName;
+            obj.LastName = s.LastName;
+
             return SaveChanges();
         }
 

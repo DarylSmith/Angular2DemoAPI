@@ -7,7 +7,7 @@ using SampleAngular.Models;
 using Microsoft.Extensions.Logging;
 using SampleAngular.Entities;
 using Microsoft.EntityFrameworkCore;
-
+using System.Globalization;
 
 namespace SampleAngular.Controllers
 {
@@ -36,6 +36,7 @@ namespace SampleAngular.Controllers
        [HttpPost]
         public  IActionResult CreateEvent ([FromBody]MeetupEvent e)
         {
+            e.EventDate = DateTime.ParseExact(e.EventTime, "yyyy-MM-dd", CultureInfo.InvariantCulture);
             bool insertSucceeded = _repository.AddMeetupEvent(e);
            return Ok();
         }
@@ -43,6 +44,7 @@ namespace SampleAngular.Controllers
         [HttpPut]
         public IActionResult UpdateEvent([FromBody]MeetupEvent e)
         {
+            e.EventDate = DateTime.ParseExact(e.EventTime, "yyyy-MM-dd", CultureInfo.InvariantCulture);
             bool updateSucceeded = _repository.UpdateMeetupEvent(e);
             return Ok();
         }
